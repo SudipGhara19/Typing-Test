@@ -7,8 +7,31 @@ const sentences =
 ;
 
 const sentenceEl = document.getElementById("sentence");
-const startTest = document.getElementById("start-btn");
+const startBtn = document.getElementById("start-btn");
+const timerEl = document.getElementById("timer");
+const inputFeild = document.getElementById("input");
 
 let timer;
 let seconds = 60;
 
+startBtn.addEventListener('click', () => {
+    sentenceEl.textContent = `${sentences}`;
+    inputFeild.disabled = false;
+    inputFeild.focus();
+    timerEl.textContent = `Time Left: ${seconds}`;
+    startTimer();
+})
+
+function startTimer (){
+    timer = setInterval(() => {
+        seconds--;
+        timerEl.textContent = `Time Left: ${seconds}`;
+        if(seconds <= 0){
+            endGame();
+        }
+    },1000)
+}
+
+function endGame(){
+    clearInterval(timer);
+}
