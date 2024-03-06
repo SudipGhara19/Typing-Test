@@ -13,6 +13,7 @@ const inputFeild = document.getElementById("input");
 const resultElement = document.getElementById("result");
 const speedEl = document.getElementById("speed");
 const accuracyEl = document.getElementById("accuracy");
+const retryEl = document.getElementById("retry-btn");
 
 let timer;
 let seconds = 30;
@@ -24,6 +25,10 @@ startBtn.addEventListener('click', () => {
     timerEl.textContent = `Time Left: ${seconds}`;
     startTimer();
     startBtn.disabled = true;
+});
+
+retryEl.addEventListener('click', () => {
+    retryTest();
 })
 
 function startTimer (){
@@ -52,6 +57,14 @@ function showResult(){
     accuracyEl.textContent = `${accuracy}`;
 
 
+}
+
+function retryTest(){
+    inputFeild.value = '';
+    inputFeild.disabled = true;
+    startBtn.disabled = false;
+    resultElement.style.display = 'none';
+    seconds = 30;
 }
 
 function endGame(){
