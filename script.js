@@ -10,9 +10,12 @@ const sentenceEl = document.getElementById("sentence");
 const startBtn = document.getElementById("start-btn");
 const timerEl = document.getElementById("timer");
 const inputFeild = document.getElementById("input");
+const resultElement = document.getElementById("result");
+const speedEl = document.getElementById("speed");
+const accuracyEl = document.getElementById("accuracy");
 
 let timer;
-let seconds = 60;
+let seconds = 30;
 
 startBtn.addEventListener('click', () => {
     sentenceEl.textContent = `${sentences}`;
@@ -20,6 +23,7 @@ startBtn.addEventListener('click', () => {
     inputFeild.focus();
     timerEl.textContent = `Time Left: ${seconds}`;
     startTimer();
+    startBtn.disabled = true;
 })
 
 function startTimer (){
@@ -32,6 +36,27 @@ function startTimer (){
     },1000)
 }
 
+
+function showResult(){
+    resultElement.style.display = 'contents';
+    inputFeild.disabled = true;
+
+    //calculate and display the typing speed
+    const typedWords = inputFeild.value.trim().split(/\s+/).filter(word => word !== "").length;
+    const wpm = Math.round((typedWords / 30) * 60);
+    speedEl.textContent = `${wpm}`;
+
+    //calculate and show the accuracy
+    const correctCharacters = inputFeild.value.split('').filter((char, index) => char === sentences[index]).length;
+    const accuracy = Math.round((correctCharacters / sentences.length) * 1000);
+    accuracyEl.textContent = `${accuracy}`;
+
+
+}
+
 function endGame(){
     clearInterval(timer);
+    timerEl.textContent = '';
+    showResult();
 }
+
